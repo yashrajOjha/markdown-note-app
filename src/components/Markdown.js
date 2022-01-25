@@ -1,37 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import MDEditor from '@uiw/react-md-editor';
+import useLocalStorage from '../hooks/useLocalStorage';
+
 function Markdown() {
-  const [data,setData] = useState("A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support.")
+  const [data,setData] = useLocalStorage("note",[{}]);
   return <>
   <Container>
-      <LeftTextArea>
-          <h3>Type Here</h3>
-          <textarea value={data} onChange={(e)=>{
-              setData(e.target.value)
-          }}></textarea>
-      </LeftTextArea>
-      <RightDisplayArea>
-          <h3>Rendered Output</h3>
-          <ReactMarkdown children={data} components={{
-              code:Component,
-          }}>
-          </ReactMarkdown>
-      </RightDisplayArea>
+      <TextArea>
+          <MDEditor
+        value={data['text']}
+        onChange={setData}
+        height={600}
+        visiableDragbar= {false}
+        preview={'live'}
+        enableScroll={true}
+      />
+      </TextArea>
+      <SaveButton
+      onClick={()=>{
+        localStorage.setItem("note", JSON.stringify(data));
+      }}>
+        Save
+      </SaveButton>
   </Container>
   </>;
 }
-
-const Component = ({value}) => {
-  return (
-    <SyntaxHighlighter language="javascript" style={docco}>
-      {value ?? 'console.log("Enter Something")'}
-    </SyntaxHighlighter>
-  );
-};
 
 export default Markdown;
 
@@ -42,45 +37,31 @@ display:flex;
 flex-direction:row;
 background:#F5F5F5;
 `
-const LeftTextArea = styled.div`
-margin:1%;
-width: 48%;
+const TextArea = styled.div`
+margin:2%;
+width: 97%;
 height: 80%;
 display:flex;
 flex-direction:column;
 textarea{
-    margin-top:10px;
-    font-size:16px;
-    width: 100%;
-    height: 80vh;
-    background:#F5F5F5;
-    border-style: none; 
-    resize:none;
-    overflow-y: scroll;
-    line-spacing:1.5px;        
-}
-h3{
-    display:flex;
-    font-weight:600;
-    color:#1A374D;
-    opacity:0.6;
+  height:100vh;
 }
 `
-const RightDisplayArea = styled.div`
-margin:1%;
-margin-left:2%;
-width: 49%;
-height: 80vh;
-font-size:16px;
-display:flex;
-flex-direction:column;
-overflow-y: scroll;
-line-spacing:1.5px;
-h3{
-    display:flex;
-    font-weight:600;
-    margin-bottom:8px;
+const SaveButton = styled.button`
+  position:absolute;
+  top:0;
+  right:0;
+  margin:1.2%;
+  padding: 7px 20px;
+  font-size:16px;
+  font-weight:600;
+  color:#1A374D;
+  border-style:none;
+  border-radius:10px;
+  cursor:pointer;
+
+  &:hover{
+    background:#B1D0E0;
     color:#1A374D;
-    opacity:0.6;
-}
+  }
 `
