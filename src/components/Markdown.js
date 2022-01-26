@@ -80,15 +80,15 @@ textarea{
 }
 `
 const ButtonGroup = styled.div`
-width:30%;
-display:flex;
-flex-direction:row;
-position:absolute;
-justify-content:space-between;
-top:0;
-right:0;
-margin:1%;
-background:#1A374D;
+  width:30%;
+  display:flex;
+  flex-direction:row;
+  position:absolute;
+  justify-content:space-between;
+  top:0;
+  right:0;
+  margin:1%;
+  background:#1A374D;
 `
 
 const SaveButton = styled.button`
