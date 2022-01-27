@@ -1,6 +1,6 @@
 # Hello 👋🏻 Welcome to your average note app. 
 
-**Live Demo**:[your average note app](https://youraveragenoteapp.web.app/)
+**Live Demo**: [your average note app](https://youraveragenoteapp.web.app/)
 
 this is an easy-to-use app for you to take notes on your browser without absolutely no hassle! It keeps your info on local storage and uses **markdown** so you can create your notes with your personal flair to them. 
 
